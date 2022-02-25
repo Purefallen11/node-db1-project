@@ -33,12 +33,25 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
+router.put('/:id',async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const updates = req.body
+    const updatedAccount = await Accounts.updateById(id, updates)
+    res.json(updatedAccount)
+  } catch (err) {
+    res.status(500).json({message: err.message})
+  }
 });
 
-router.delete('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
+router.delete('/:id',async (req, res, next) => {
+  try {
+    const {id} = req.params
+    const removedAccount = await Accounts.deleteById(id)
+    res.json(removedAccount)
+  } catch (err) {
+    res.status(500).json({message: err.message})
+  }
 })
 
 router.use((err, req, res, next) => { // eslint-disable-line

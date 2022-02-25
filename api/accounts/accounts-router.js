@@ -1,7 +1,11 @@
 const router = require('express').Router()
+const Accounts = require('./accounts-model')
 
 router.get('/', (req, res, next) => {
-  // DO YOUR MAGIC
+  Accounts.getAll()
+    .then(account => {
+    res.status(200).json(account)
+  })
 })
 
 router.get('/:id', (req, res, next) => {
